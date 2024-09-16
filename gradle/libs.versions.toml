@@ -18,6 +18,12 @@ truthVersion="1.4.4"
 roomVersion="2.6.1"
 kspVersion="1.9.0-1.0.13"
 
+navigationCompose = "2.8.0"
+serialization = "1.6.3"
+
+ktorVersion = "2.3.7"
+slf4jVersion = "2.0.9"
+
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -54,8 +60,19 @@ lifecycle-runtime-compose = { group = "androidx.lifecycle", name = "lifecycle-ru
 hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt"  }
 hilt-android-compiler = { group = "com.google.dagger", name= "hilt-android-compiler", version.ref = "hilt"  }
 
+androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
+kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "serialization"}
+
+ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktorVersion" }
+ktor-client-android = { module = "io.ktor:ktor-client-android", version.ref = "ktorVersion" }
+ktor-client-content-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktorVersion" }
+ktor-serialization = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktorVersion" }
+ktor-logging = { module = "io.ktor:ktor-client-logging", version.ref = "ktorVersion" }
+slf4j = { module = "org.slf4j:slf4j-simple", version.ref = "slf4jVersion" }
+
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 hilt-kotlin-android = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "kspVersion" }
