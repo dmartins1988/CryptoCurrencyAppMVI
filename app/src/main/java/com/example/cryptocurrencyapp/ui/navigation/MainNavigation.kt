@@ -2,6 +2,7 @@ package com.example.cryptocurrencyapp.ui.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -20,9 +21,11 @@ fun MainNavigation(
         startDestination = Screen.CoinList
     ) {
         composable<Screen.CoinList> {
+            val state = viewModel.state.collectAsStateWithLifecycle().value
             CoinListScreen(
                 navController = navController,
-                viewModel = viewModel
+                dispatchEvent = viewModel::dispatchIntent,
+                state = state
             )
         }
 

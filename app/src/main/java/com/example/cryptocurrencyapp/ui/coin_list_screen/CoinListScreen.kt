@@ -20,18 +20,19 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import com.example.cryptocurrencyapp.presentation.asUiText
 import com.example.cryptocurrencyapp.presentation.crypto_currency_list.CoinsIntent
+import com.example.cryptocurrencyapp.presentation.crypto_currency_list.CoinsUiState
 import com.example.cryptocurrencyapp.presentation.crypto_currency_list.CoinsViewModel
 import com.example.cryptocurrencyapp.presentation.navigation.Screen
 
 @Composable
 fun CoinListScreen(
     navController: NavHostController,
-    viewModel: CoinsViewModel
+    dispatchEvent: (CoinsIntent) -> Unit,
+    state: CoinsUiState
 ) {
-    val state = viewModel.state.collectAsStateWithLifecycle()
 
     LaunchedEffect(key1 = Unit) {
-        viewModel.dispatchIntent(CoinsIntent.LoadCoins)
+        dispatchEvent(CoinsIntent.LoadCoins)
     }
 
     Box(
@@ -40,7 +41,7 @@ fun CoinListScreen(
             .padding(16.dp)
     ) {
         when {
-            state.value.isLoading -> {
+            state.isLoading -> {
                 CircularProgressIndicator(
                     modifier = Modifier
                         .testTag("isLoading")
@@ -48,29 +49,29 @@ fun CoinListScreen(
                 )
             }
 
-            state.value.listOfCoins.isNotEmpty() -> {
+            state.listOfCoins.isNotEmpty() -> {
                 LazyColumn(
                     modifier = Modifier
                         .testTag("listOfWords")
                         .fillMaxSize()
                 ) {
-                    items(state.value.listOfCoins.size) { i ->
-                        val coin = state.value.listOfCoins[i]
+                    items(state.listOfCoins.size) { i ->
+                        val coin = state.listOfCoins[i]
                         CoinItem(
                             coin = coin
                         ) {
                             navController.navigate(Screen.CoinDetail(coin.id))
                         }
-                        if (i < state.value.listOfCoins.size - 1) {
+                        if (i < state.listOfCoins.size - 1) {
                             HorizontalDivider()
                         }
                     }
                 }
             }
 
-            state.value.errorMessage != null -> {
+            state.errorMessage != null -> {
                 Text(
-                    text = state.value.errorMessage?.asUiText()?.asString() ?: "",
+                    text = state.errorMessage.asUiText().asString(),
                     color = MaterialTheme.colorScheme.error,
                     textAlign = TextAlign.Center,
                     modifier = Modifier
