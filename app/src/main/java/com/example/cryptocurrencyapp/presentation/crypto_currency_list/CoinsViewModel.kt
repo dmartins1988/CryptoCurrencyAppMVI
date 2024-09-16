@@ -17,8 +17,8 @@ class CoinsViewModel @Inject constructor(
     private val repository: CryptoCurrencyRepository
 ) : ViewModel() {
 
-    private val _state = MutableStateFlow(CoinsState())
-    val state: StateFlow<CoinsState> = _state.asStateFlow()
+    private val _state = MutableStateFlow(CoinsUiState())
+    val state: StateFlow<CoinsUiState> = _state.asStateFlow()
 
     fun dispatchIntent(intent: CoinsIntent) {
         when (intent) {
