@@ -20,16 +20,16 @@ class CoinsViewModel @Inject constructor(
     private val _state = MutableStateFlow(CoinsUiState())
     val state: StateFlow<CoinsUiState> = _state.asStateFlow()
 
-    fun dispatchIntent(intent: CoinsIntent) {
-        when (intent) {
-            CoinsIntent.LoadCoins -> loadCoins()
-        }
+    init {
+        loadCoins()
     }
 
     private fun loadCoins() {
         viewModelScope.launch {
             _state.update {
-                it.copy(isLoading = true)
+                it.copy(
+                    isLoading = true
+                )
             }
             when (val response = repository.getCoins()) {
                 is Result.Error -> {

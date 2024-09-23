@@ -26,7 +26,6 @@ fun MainNavigation(
             val state = coinsViewModel.state.collectAsStateWithLifecycle().value
             CoinListScreen(
                 navController = navController,
-                dispatchEvent = coinsViewModel::dispatchIntent,
                 state = state
             )
         }

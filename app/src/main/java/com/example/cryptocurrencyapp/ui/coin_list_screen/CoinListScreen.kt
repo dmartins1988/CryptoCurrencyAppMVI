@@ -10,30 +10,21 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import com.example.cryptocurrencyapp.presentation.asUiText
-import com.example.cryptocurrencyapp.presentation.crypto_currency_list.CoinsIntent
 import com.example.cryptocurrencyapp.presentation.crypto_currency_list.CoinsUiState
-import com.example.cryptocurrencyapp.presentation.crypto_currency_list.CoinsViewModel
 import com.example.cryptocurrencyapp.presentation.navigation.Screen
 
 @Composable
 fun CoinListScreen(
     navController: NavHostController,
-    dispatchEvent: (CoinsIntent) -> Unit,
     state: CoinsUiState
 ) {
-
-    LaunchedEffect(key1 = Unit) {
-        dispatchEvent(CoinsIntent.LoadCoins)
-    }
 
     Box(
         modifier = Modifier

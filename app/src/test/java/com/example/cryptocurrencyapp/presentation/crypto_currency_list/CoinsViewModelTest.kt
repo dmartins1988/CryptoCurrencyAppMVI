@@ -28,9 +28,8 @@ class CoinsViewModelTest {
 
     @Before
     fun setUp() {
-        repository = mockk(relaxed = true)
-        viewModel = CoinsViewModel(repository)
         Dispatchers.setMain(testDispatcher)
+        repository = mockk(relaxed = true)
     }
 
     @After
@@ -60,14 +59,13 @@ class CoinsViewModelTest {
             )
         )
 
+        viewModel = CoinsViewModel(repository)
 
         coEvery { repository.getCoins() } returns Result.Success(coins)
 
-        viewModel.dispatchIntent(CoinsIntent.LoadCoins)
-
         // Collect emissions from the ViewModel's state flow.
         viewModel.state.test {
-            assertEquals(CoinsUiState(isLoading = false), awaitItem()) // Initial value
+            assertEquals(CoinsUiState(isLoading = false), awaitItem())
             assertEquals(CoinsUiState(isLoading = true), awaitItem())
             assertEquals(CoinsUiState(isLoading = false, listOfCoins = coins), awaitItem())
             cancelAndIgnoreRemainingEvents()
@@ -77,15 +75,14 @@ class CoinsViewModelTest {
     @Test
     fun `test state emits Loading, then Error`() = runTest {
         // Mock the repository to return an error result.
-
         val result = Result.Error<List<Coin>, DataError.Network>(DataError.Network.UNKNOWN)
         coEvery { repository.getCoins() } returns result
 
-        viewModel.dispatchIntent(CoinsIntent.LoadCoins)
+        viewModel = CoinsViewModel(repository)
 
         // Collect emissions from the ViewModel's state flow.
         viewModel.state.test {
-            assertEquals(CoinsUiState(isLoading = false), awaitItem()) // Initial state
+            assertEquals(CoinsUiState(isLoading = false), awaitItem())
             assertEquals(CoinsUiState(isLoading = true), awaitItem())
             assertEquals(
                 CoinsUiState(
