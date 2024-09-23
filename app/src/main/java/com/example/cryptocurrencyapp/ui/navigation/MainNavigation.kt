@@ -6,6 +6,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.cryptocurrencyapp.presentation.crypto_currency_detail.CoinDetailViewModel
 import com.example.cryptocurrencyapp.presentation.crypto_currency_list.CoinsViewModel
 import com.example.cryptocurrencyapp.presentation.navigation.Screen
 import com.example.cryptocurrencyapp.ui.coin_list_screen.CoinListScreen
@@ -14,23 +15,24 @@ import com.example.cryptocurrencyapp.ui.coin_list_screen.CoinListScreen
 fun MainNavigation(
     modifier: Modifier = Modifier,
     navController: NavHostController,
-    viewModel: CoinsViewModel
+    coinsViewModel: CoinsViewModel,
+    coinDetailViewModel: CoinDetailViewModel
 ) {
     NavHost(
         navController = navController,
         startDestination = Screen.CoinList
     ) {
         composable<Screen.CoinList> {
-            val state = viewModel.state.collectAsStateWithLifecycle().value
+            val state = coinsViewModel.state.collectAsStateWithLifecycle().value
             CoinListScreen(
                 navController = navController,
-                dispatchEvent = viewModel::dispatchIntent,
+                dispatchEvent = coinsViewModel::dispatchIntent,
                 state = state
             )
         }
 
         composable<Screen.CoinDetail> {
-
+            val state = coinDetailViewModel.state.collectAsStateWithLifecycle().value
         }
     }
 }

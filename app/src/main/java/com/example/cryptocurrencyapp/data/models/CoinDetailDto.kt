@@ -1,7 +1,7 @@
 package com.example.cryptocurrencyapp.data.models
 
 
-import com.example.cyrptocurrencymvi.domain.models.CoinDetail
+import com.example.cryptocurrencyapp.domain.models.CoinDetail
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 

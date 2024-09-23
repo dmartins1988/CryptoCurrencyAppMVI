@@ -1,4 +1,4 @@
-package com.example.cyrptocurrencymvi.domain.models
+package com.example.cryptocurrencyapp.domain.models
 
 data class CoinDetail(
     val coinId: String = "",
