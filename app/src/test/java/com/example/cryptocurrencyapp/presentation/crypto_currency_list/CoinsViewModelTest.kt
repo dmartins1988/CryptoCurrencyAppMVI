@@ -5,36 +5,26 @@ import com.example.cryptocurrencyapp.core.DataError
 import com.example.cryptocurrencyapp.core.Result
 import com.example.cryptocurrencyapp.domain.CryptoCurrencyRepository
 import com.example.cryptocurrencyapp.domain.models.Coin
+import com.example.cryptocurrencyapp.presentation.MainDispatcherRule
 import io.mockk.coEvery
 import io.mockk.mockk
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.StandardTestDispatcher
-import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
-import kotlinx.coroutines.test.setMain
-import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 
-@OptIn(ExperimentalCoroutinesApi::class)
 class CoinsViewModelTest {
 
-    private val testDispatcher = StandardTestDispatcher()
+    @get:Rule
+    val mainDispatcherRule = MainDispatcherRule()
 
     private lateinit var repository: CryptoCurrencyRepository
     private lateinit var viewModel: CoinsViewModel
 
     @Before
     fun setUp() {
-        Dispatchers.setMain(testDispatcher)
         repository = mockk(relaxed = true)
-    }
-
-    @After
-    fun tearDown() {
-        Dispatchers.resetMain()
     }
 
     @Test
