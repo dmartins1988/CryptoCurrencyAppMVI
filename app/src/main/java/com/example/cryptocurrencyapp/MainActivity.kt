@@ -28,8 +28,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             CryptoCurrencyAppTheme {
                 val navController = rememberNavController()
-
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+                Scaffold { innerPadding ->
                     MainNavigation(
                         modifier = Modifier.padding(innerPadding),
                         navController = navController,

@@ -5,6 +5,6 @@ import com.example.cryptocurrencyapp.domain.models.CoinDetail
 
 data class CoinDetailUiState(
     val isLoading: Boolean = false,
-    val coin: CoinDetail = CoinDetail(),
+    val coin: CoinDetail? = null,
     val errorMessage: DataError.Network? = null
 )
