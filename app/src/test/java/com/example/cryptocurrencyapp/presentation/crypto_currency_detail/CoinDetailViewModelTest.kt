@@ -3,22 +3,13 @@ package com.example.cryptocurrencyapp.presentation.crypto_currency_detail
 import app.cash.turbine.test
 import com.example.cryptocurrencyapp.core.DataError
 import com.example.cryptocurrencyapp.core.Result
-import com.example.cryptocurrencyapp.di.MainDispatcher
 import com.example.cryptocurrencyapp.domain.CryptoCurrencyRepository
 import com.example.cryptocurrencyapp.domain.models.CoinDetail
 import com.example.cryptocurrencyapp.presentation.MainDispatcherRule
 import io.mockk.coEvery
 import io.mockk.mockk
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.StandardTestDispatcher
-import kotlinx.coroutines.test.UnconfinedTestDispatcher
-import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
-import kotlinx.coroutines.test.setMain
-import org.junit.Assert.*
-
-import org.junit.After
+import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -52,7 +43,6 @@ class CoinDetailViewModelTest {
         viewModel.dispatchIntent(CoinDetailIntent.LoadCoinDetail("1"))
 
         viewModel.state.test {
-
             assertEquals(CoinDetailUiState(isLoading = false), awaitItem())
             assertEquals(CoinDetailUiState(isLoading = true), awaitItem())
             assertEquals(CoinDetailUiState(isLoading = false, coin = coinDetail), awaitItem())
@@ -72,7 +62,10 @@ class CoinDetailViewModelTest {
         viewModel.state.test {
             assertEquals(CoinDetailUiState(isLoading = false), awaitItem())
             assertEquals(CoinDetailUiState(isLoading = true), awaitItem())
-            assertEquals(CoinDetailUiState(isLoading = false, errorMessage = result.error), awaitItem())
+            assertEquals(
+                CoinDetailUiState(isLoading = false, errorMessage = result.error),
+                awaitItem()
+            )
             cancelAndIgnoreRemainingEvents()
         }
     }
